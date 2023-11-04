@@ -1,11 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import {getFirestore} from "@firebase/firestore"
-
+import { firebase } from '@firebase/app'
+import '@firebase/auth'
 
 const firebaseConfig = {
-  apiKey: '${process.env.REDIRECT_API_KEY}',
-  authDomain: '${process.env.REDIRECT_AUTH_DOMAIN}',
+  apiKey: 'AIzaSyCfn4Yo1tRuxu7pwJsAOH5LJV26-WCTxUs',
+  authDomain: 'education-6cbf6.firebaseapp.com',
   projectId: "education-6cbf6",
   storageBucket: "education-6cbf6.appspot.com",
   messagingSenderId: "986598937138",

@@ -15,7 +15,7 @@ export default function SignUP() {
 
   const ref = collection(firestore, "users");
 
-  const handleSignupUser = async(e) => {
+  const handleSignupUser = async (e) => {
     e.preventDefault();
     // console.log(
     //   firstnameRef.current.value,
@@ -23,24 +23,34 @@ export default function SignUP() {
     //   emailRef.current.value,
     //   passwordRef.current.value,
     //   confirmpasswordRef.current.value,
-	//   roleRef.current.value
+    //   roleRef.current.value
     // );
 
-	let data = {
-		firstname: firstnameRef.current.value,
-		lastname: lastnameRef.current.value,
-		email: emailRef.current.value,
-		password: passwordRef.current.value,
-		confirmpassword: confirmpasswordRef.current.value,
-		role: roleRef.current.value,
-    status: false,
-	};
+    let data = {
+      firstname: firstnameRef.current.value,
+      lastname: lastnameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      confirmpassword: confirmpasswordRef.current.value,
+      role: roleRef.current.value,
+      status: false,
+    };
 
-	try {
-		addDoc(ref,data);
-	} catch (e) {
-		console.log(e);
-	}
+    try {
+      if (
+        firstnameRef.current.value !== "" &&
+        lastnameRef.current.value !== "" &&
+        emailRef.current.value !== "" &&
+        passwordRef.current.value !== "" &&
+        confirmpasswordRef.current.value !== ""
+      ) {
+        addDoc(ref, data);
+      } else {
+        alert("Please fill all the fields");
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -103,8 +113,11 @@ export default function SignUP() {
                       justifyContent: "space-between",
                     }}
                   >
-                    <label style={{fontWeight: "600"}}>Role</label>
-                    <select style={{padding: "5px", border: "none"}} ref={roleRef}>
+                    <label style={{ fontWeight: "600" }}>Role</label>
+                    <select
+                      style={{ padding: "5px", border: "none" }}
+                      ref={roleRef}
+                    >
                       <option value="student">Student</option>
                       <option value="teacher">Teacher</option>
                     </select>
