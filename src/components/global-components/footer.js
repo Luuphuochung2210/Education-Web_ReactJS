@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { EnvContext } from '../context/EnvContext';
 
-class Footer_v1 extends Component {
 
-	componentDidMount() {
-		let publicUrl = process.env.PUBLIC_URL + '/'
-		const minscript = document.createElement("script");
-		minscript.async = true;
-		minscript.src = publicUrl + "assets/js/main.js";
+const componentDidMount = () => {
+	let publicUrl = process.env.PUBLIC_URL + '/'
+	const minscript = document.createElement("script");
+	minscript.async = true;
+	minscript.src = publicUrl + "assets/js/main.js";
 
-		document.body.appendChild(minscript);
-	}
+	document.body.appendChild(minscript);
+}
 
-	render() {
+let publicUrl = process.env.PUBLIC_URL + '/'
 
-		let publicUrl = process.env.PUBLIC_URL + '/'
 
-		return (
-			<footer className="footer-area bg-gray">
+export default function Footer_v1() {
+	// const [status,EnvDispatch] = useContext(EnvContext)
+	// console.log(status)
+
+  return (
+	<footer className="footer-area bg-gray">
 				<div className="footer-subscribe">
 					<div className="container">
 						<form className="footer-subscribe-inner">
@@ -121,10 +125,5 @@ class Footer_v1 extends Component {
 					</div>
 				</div>
 			</footer>
-
-		)
-	}
+  )
 }
-
-
-export default Footer_v1

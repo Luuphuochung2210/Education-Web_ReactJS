@@ -6,8 +6,6 @@ class Signin extends Component {
 
     render() {
 
-        let publicUrl = process.env.PUBLIC_URL+'/'
-
     return  <div className="signin-page-area pd-top-120 pd-bottom-120">
 			  <div className="container">
 			    <div className="row justify-content-center">

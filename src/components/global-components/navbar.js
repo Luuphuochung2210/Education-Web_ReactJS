@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { EnvContext } from '../context/EnvContext';
+
+let publicUrl = process.env.PUBLIC_URL+'/'
+
+// const componentDidMount  =()=> {
+
+//   const $ = window.$;
+
+//   $( 'body' ).removeClass( 'home-3' );
+
+// }
+
+
 
 class Navbar extends Component {
 
-   componentDidMount() {
-
-     const $ = window.$;
-
-     $( 'body' ).removeClass( 'home-3' );
-
-   }
+   
 
     render() {
-        let publicUrl = process.env.PUBLIC_URL+'/'
-        let imgattr = 'logo'
-        let anchor = '#'
+
         return (
         	<div className="navbar-area">
             {/* navbar top start */}
@@ -30,7 +36,7 @@ class Navbar extends Component {
                   <div className="col-md-4">
                     <ul className="topbar-right text-md-right text-center">
                       <li className="social-area">
-                        <a href="#"><i className="fa fa-facebook" aria-hidden="true" /></a>
+                        <a href="https://www.facebook.com/ngo.d.tantai" target='_blank'><i className="fa fa-facebook" aria-hidden="true" /></a>
                         <a href="#"><i className="fa fa-twitter" aria-hidden="true" /></a>
                         <a href="#"><i className="fa fa-instagram" aria-hidden="true" /></a>
                         <a href="#"><i className="fa fa-pinterest" aria-hidden="true" /></a>
