@@ -4,6 +4,10 @@ import parse from "html-react-parser";
 import { useRef } from "react";
 import { firestore } from "../../firebase";
 import { addDoc, collection } from "firebase/firestore";
+import { EnvContext } from "../context/EnvContext";
+import { useContext } from "react";
+// import { useHistory } from "react-router-dom"
+
 
 export default function SignUP() {
   const firstnameRef = useRef();
@@ -12,20 +16,14 @@ export default function SignUP() {
   const passwordRef = useRef();
   const confirmpasswordRef = useRef();
   const roleRef = useRef();
+  const { login, users, envDispatch } = useContext(EnvContext);
+
 
   const ref = collection(firestore, "users");
 
   const handleSignupUser = async (e) => {
     e.preventDefault();
-    // console.log(
-    //   firstnameRef.current.value,
-    //   lastnameRef.current.value,
-    //   emailRef.current.value,
-    //   passwordRef.current.value,
-    //   confirmpasswordRef.current.value,
-    //   roleRef.current.value
-    // );
-
+    // let history = useHistory()
     let data = {
       firstname: firstnameRef.current.value,
       lastname: lastnameRef.current.value,
@@ -44,9 +42,11 @@ export default function SignUP() {
         passwordRef.current.value !== "" &&
         confirmpasswordRef.current.value !== ""
       ) {
-        addDoc(ref, data);
+        users.push(data);
+        // history.push("/");
       } else {
         alert("Please fill all the fields");
+
       }
     } catch (e) {
       console.log(e);

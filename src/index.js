@@ -6,7 +6,6 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import HomeV1 from "./components/home-v1";
 import HomeV2 from "./components/home-v2";
 import HomeV3 from "./components/home-v3";
 import Course from "./components/course";
@@ -32,8 +31,7 @@ class Root extends Component {
         <HashRouter basename="/">
           <div>
             <Switch>
-              <Route exact path="/" component={HomeV1} />
-              <Route path="/home-v2" component={HomeV2} />
+              <Route exact path="/" component={HomeV2} />
               <Route path="/home-v3" component={HomeV3} />
               <Route path="/course" component={Course} />
               <Route path="/course-details" component={CourseDetails} />

@@ -1,32 +1,41 @@
-import React, { Component, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import parse from "html-react-parser";
-import { firestore } from "../../firebase";
-import { addDoc, collection, getDoc, getDocs } from "firebase/firestore";
-import { useEffect } from "react";
-
+import React, { Component, useContext, useRef, useState, } from "react";
+import { EnvContext } from "../context/EnvContext";
 export default function Signin() {
-  const usernameRef = useRef();
   const passwordRef = useRef();
   const emailRef = useRef();
-  const [account, setAccount] = useState([]);
-
-
-  const ref = collection(firestore, "users");
-
-//   useEffect(() => {
-	
-    
-//   },[ref]);
+  const { users, login, envDispatch } = useContext(EnvContext);
 
   const handleLogin = async (e) => {
-	const getData = async () => {
-		const dbUsers = await getDocs(ref);
-		setAccount(dbUsers.docs.map((doc) => ({ ...doc.data(), id: doc.user })));
-	  };
-	  getData();
-	  const temp = account.map((user) => user.email);
-	  console.log(temp);
+    e.preventDefault();
+    localStorage.setItem(
+      "data",
+      JSON.stringify({
+        user: emailRef.current.value,
+        pwd: passwordRef.current.value,
+      })
+    );
+    var logacc = users.filter(
+      (user) =>
+        user.email == emailRef.current.value &&
+        user.password == passwordRef.current.value
+    );
+    if (logacc.length == 0) {
+      alert("Wrong email or password");
+    } else {
+      envDispatch({
+        type: "SET_LOGIN",
+        payload: {
+          firstname: logacc[0].firstname,
+          lastname: logacc[0].lastname,
+          username: logacc[0].username,
+          email: logacc[0].email,
+          role: logacc[0].role,
+          status: true,
+        },
+      });
+    }
+
+    console.log(login);
   };
 
   return (
@@ -38,12 +47,12 @@ export default function Signin() {
               <div className="row">
                 <div className="col-12">
                   <div className="single-input-inner style-bg-border">
-                    <input type="text" placeholder="Name" ref={usernameRef} />
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="single-input-inner style-bg-border">
-                    <input type="text" placeholder="Email" ref={emailRef} />
+                    <input
+                      type="text"
+                      placeholder="Email"
+                      ref={emailRef}
+                      required
+                    />
                   </div>
                 </div>
                 <div className="col-12">
@@ -52,6 +61,7 @@ export default function Signin() {
                       type="password"
                       placeholder="Password"
                       ref={passwordRef}
+                      required
                     />
                   </div>
                 </div>

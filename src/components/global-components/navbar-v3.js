@@ -35,8 +35,7 @@ class NavbarV3 extends Component {
 			          <li className="menu-item-has-children current-menu-item">
 			            <Link to="/">Home</Link>
 			            <ul className="sub-menu">
-				            <li><Link to="/">Home 01</Link></li>
-	                        <li><Link to="/home-v2">Home 02</Link></li>
+	                        <li><Link to="/">Home 02</Link></li>
 	                        <li><Link to="/home-v3">Home 03</Link></li>
 			            </ul>
 			          </li>

@@ -9,7 +9,8 @@ export const EnvContextProvider = ({ children }) => {
         <EnvContext.Provider
         value={{
             status: state.status,
-            account: state.account,
+            users: state.users,
+            login: state.login,
             envDispatch,
         }}>
             {children}
