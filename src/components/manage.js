@@ -1,17 +1,16 @@
-import React from 'react';
-import Navbar from './global-components/navbar-v4';
-import PageHeader from './global-components/page-header';
-import Pricing from './section-components/pricing';
-import Footer from './global-components/footer';
-import { EnvContext } from "./context/EnvContext";
+import React, { useEffect } from "react";
+import Navbar from "./global-components/navbar-v4";
+import PageHeader from "./global-components/page-header";
+import Footer from "./global-components/footer";
+import Manage from "./section-components/manage";
 import { useContext } from "react";
+import { EnvContext } from "./context/EnvContext";
+import { useHistory } from "react-router-dom";
+import HomeV2 from "./home-v2";
 import axios from "axios";
-import { useEffect } from "react";
 
-
-const PricingPage = () => {
-    
-    const { users, login, envDispatch } = useContext(EnvContext);
+const Managing = () => {
+  const { users, login, envDispatch } = useContext(EnvContext);
     const info = JSON.parse(localStorage.getItem("data"));
   
     useEffect(() => {
@@ -45,13 +44,18 @@ const PricingPage = () => {
         }
       }
     }, [users]);
-    return <div>
-        <Navbar />
-        <PageHeader headertitle="Pricing"  />
-        <Pricing />
-        <Footer />
+  
+
+  return login.status == true && login.role == "admin" ? (
+    <div>
+      <Navbar />
+      <PageHeader headertitle="Manage" />
+      <Manage />
+      <Footer />
     </div>
-}
+  ) : (
+    <HomeV2 />
+  );
+};
 
-export default PricingPage
-
+export default Managing;

@@ -1,17 +1,31 @@
 import React, { Component, useContext, useRef, useState, } from "react";
 import { EnvContext } from "../context/EnvContext";
+import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+
 export default function Signin() {
   const passwordRef = useRef();
   const emailRef = useRef();
   const { users, login, envDispatch } = useContext(EnvContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_API_URL + "/users", { credential: true })
+      .then((res) => {
+        envDispatch({ type: "SET_USERS", payload: res.data.data });
+      });
+      console.log(users)
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     localStorage.setItem(
       "data",
       JSON.stringify({
-        user: emailRef.current.value,
-        pwd: passwordRef.current.value,
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
       })
     );
     var logacc = users.filter(
@@ -33,9 +47,9 @@ export default function Signin() {
           status: true,
         },
       });
+      history.push("/");
     }
 
-    console.log(login);
   };
 
   return (

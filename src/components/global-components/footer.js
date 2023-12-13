@@ -17,8 +17,6 @@ let publicUrl = process.env.PUBLIC_URL + '/'
 
 
 export default function Footer_v1() {
-	// const [status,EnvDispatch] = useContext(EnvContext)
-	// console.log(status)
 
   return (
 	<footer className="footer-area bg-gray">
@@ -107,7 +105,7 @@ export default function Footer_v1() {
 					<div className="container">
 						<div className="row">
 							<div className="col-lg-4 col-md-6 align-self-center">
-								<a href="index.html"><img src={publicUrl + "assets/img/footer-logo.png"} alt="img" /></a>
+								<a href="#"><img src={publicUrl + "assets/img/footer-logo.png"} alt="img" /></a>
 							</div>
 							<div className="col-lg-4  col-md-6 order-lg-12 text-md-right align-self-center">
 								<ul className="social-media mt-md-0 mt-3">

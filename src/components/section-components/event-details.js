@@ -54,7 +54,7 @@ class EventDetails extends Component {
 		          <div className="widget widget_catagory">
 		            <h4 className="widget-title">Location</h4>                                 
 		            <div className="widget-g-map">
-		              <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d29208.601361499546!2d90.3598076!3d23.7803374!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1589109092857!5m2!1sen!2sbd" />
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62703.628894074776!2d106.62013945252927!3d10.813086729573556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f218ed30895%3A0xd7ff822aa9ef6e94!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBIb2EgU2VuIChIU1Up!5e0!3m2!1svi!2s!4v1699433997738!5m2!1svi!2s" />
 		            </div>
 		          </div> 
 		          <div className="widget widget-contact">

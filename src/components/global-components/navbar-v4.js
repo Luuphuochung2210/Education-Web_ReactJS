@@ -2,21 +2,57 @@ import React, { Component } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { EnvContext } from "../context/EnvContext";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function NavbarV4() {
   let publicUrl = process.env.PUBLIC_URL + "/";
   let imgattr = "logo";
   let anchor = "#";
-  const { login, envDispatch } = useContext(EnvContext);
+
+  const { users, login, envDispatch } = useContext(EnvContext);
+
+  useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_API_URL + "/users", { credential: true })
+      .then((res) => {
+        envDispatch({ type: "SET_USERS", payload: res.data.data });
+      });
+  }, []);
+
+  useEffect(() => {
+    var newInfo = users;
+    var data = JSON.parse(localStorage.getItem("data"));
+    if (data !== null) {
+      newInfo = newInfo.filter(
+        (user) => user.email === data.email && user.password === data.password
+      );
+
+      if (newInfo.length) {
+        envDispatch({
+          type: "SET_LOGIN",
+          payload: {
+            email: newInfo[0].email,
+            firstname: newInfo[0].firstname,
+            lastname: newInfo[0].lastname,
+            username: newInfo[0].username,
+            role: newInfo[0].role,
+            status: true,
+          },
+        });
+      }
+    }
+  },[]);
 
   const handleLogout = (e) => {
+    localStorage.clear();
     login.status = false;
     envDispatch({
       type: "SET_LOGIN",
       payload: login,
     });
   };
-  
+
   return (
     <div className="navbar-area">
       <div className="navbar-top">
@@ -26,13 +62,13 @@ export default function NavbarV4() {
               <ul>
                 <li>
                   <p>
-                    <i className="fa fa-map-marker" /> 2072 Pinnickinick Street,
-                    WA 98370
+                    <i className="fa fa-map-marker" /> 7/1 Thành Thái, P.14,
+                    Q.10, Tp.HCM
                   </p>
                 </li>
                 <li>
                   <p>
-                    <i className="fa fa-envelope-o" /> info@website.com
+                    <i className="fa fa-envelope-o" /> edumint@gmail.com
                   </p>
                 </li>
               </ul>
@@ -82,8 +118,11 @@ export default function NavbarV4() {
           {login.status ? (
             <div className="nav-right-part nav-right-part-mobile">
               <label>{"Hello " + login.firstname}</label>
-              <Link className="signin-btn" onClick={(e) => handleLogout(e)}>
+              <Link className="signin-btn" to="/" onClick={(e) => handleLogout(e)}>
                 Log out
+              </Link>
+              <Link className="signin-btn" to="/changepassword">
+                <i className="fa fa-key" />
               </Link>
 
               <a className="search-bar" href="#">
@@ -123,9 +162,9 @@ export default function NavbarV4() {
                   <li>
                     <Link to="/course">Course</Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link to="/course-details">Course Single</Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
               <li className="menu-item-has-children">
@@ -180,14 +219,24 @@ export default function NavbarV4() {
               <li>
                 <Link to="/contact">Contact Us</Link>
               </li>
+              {login.status == true && login.role == "admin" ? (
+                <li>
+                  <Link to="/manage">Manage</Link>
+                </li>
+              ) : (
+                <></>
+              )}
             </ul>
           </div>
 
           {login.status ? (
             <div className="nav-right-part nav-right-part-desktop">
               <label>{"Hello " + login.firstname}</label>
-              <Link className="signin-btn" onClick={(e) => handleLogout(e)}>
+              <Link to="" className="signin-btn" onClick={(e) => handleLogout(e)}>
                 Log out
+              </Link>
+              <Link className="signin-btn" to="/changepassword">
+                <i className="fa fa-key" />
               </Link>
               <a className="search-bar" href="#">
                 <i className="fa fa-search" />

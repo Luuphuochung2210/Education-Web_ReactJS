@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./global-components/navbar-v4";
 import PageHeader from "./global-components/page-header";
-import EventDetailsPage from "./section-components/event-details";
+import ChangePassword from "./section-components/changepassword";
 import Footer from "./global-components/footer";
 import { EnvContext } from "./context/EnvContext";
 import { useContext } from "react";
 import axios from "axios";
-import { useEffect } from "react";
+import SingInPage from "./sign-in";
 
-const EventDetails = () => {
+const ChangePasswordPage = () => {
+  
   const { users, login, envDispatch } = useContext(EnvContext);
   const info = JSON.parse(localStorage.getItem("data"));
 
@@ -43,14 +44,19 @@ const EventDetails = () => {
       }
     }
   }, [users]);
-  return (
+
+  return login.status ? (
     <div>
-      <Navbar />
-      <PageHeader headertitle="Event Single" />
-      <EventDetailsPage />
-      <Footer />
-    </div>
-  );
+    <Navbar />
+    <PageHeader headertitle="Change Password" />
+    <ChangePassword />
+    <Footer />
+  </div>
+  ) : (
+    <SingInPage></SingInPage>
+  )
+    
+  
 };
 
-export default EventDetails;
+export default ChangePasswordPage;

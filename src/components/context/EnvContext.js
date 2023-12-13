@@ -11,6 +11,9 @@ export const EnvContextProvider = ({ children }) => {
             status: state.status,
             users: state.users,
             login: state.login,
+            displayadd: state.displayadd,
+            courseiddisplay: state.courseiddisplay,
+            allcourses: state.allcourses,
             envDispatch,
         }}>
             {children}

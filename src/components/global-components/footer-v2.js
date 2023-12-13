@@ -24,11 +24,11 @@ class Footer_v2 extends Component {
 						<div className="row">
 							<div className="col-lg-3 col-md-6">
 								<div className="widget widget_about text-center">
-									<a href="index.html"><img src={publicUrl + "assets/img/logo-3.png"} alt="img" /></a>
+									<a href="#"><img src={publicUrl + "assets/img/logo-3.png"} alt="img" /></a>
 									<div className="details">
 										<p>Edumint tetur sadipscing elitr tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
 										<ul className="social-media">
-											<li><a href="https://www.facebook.com/solverwp/"><i className="fa fa-facebook" /></a></li>
+											<li><a href="https://www.facebook.com/ngo.d.tantai/"><i className="fa fa-facebook" /></a></li>
 											<li><a href="https://www.twitter.com/solverwp"><i className="fa fa-twitter" /></a></li>
 											<li><a href="https://www.youtube.com/solverwp/"><i className="fa fa-instagram" /></a></li>
 											<li><a href="https://www.pinterest.com/solverwp/"><i className="fa fa-pinterest" /></a></li>

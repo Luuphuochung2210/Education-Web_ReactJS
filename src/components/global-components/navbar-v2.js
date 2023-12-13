@@ -1,15 +1,55 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Link } from "react-router-dom";
 import { EnvContext } from "../context/EnvContext";
 import { useContext } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function NavbarV2() {
   let publicUrl = process.env.PUBLIC_URL + "/";
   let imgattr = "logo";
   let anchor = "#";
-  const { login, envDispatch } = useContext(EnvContext);
+
+  const { users, login, envDispatch } = useContext(EnvContext);
+  const info = JSON.parse(localStorage.getItem("data"));
+
+  useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_API_URL + "/users", { credential: true })
+      .then((res) => {
+        envDispatch({ type: "SET_USERS", payload: res.data.data });
+      });
+  }, []);
+
+  useEffect(() => {
+    var newInfo = users;
+    var data = JSON.parse(localStorage.getItem("data"));
+    if (data !== null) {
+      newInfo = newInfo.filter(
+        (user) => user.email === data.email && user.password === data.password
+      );
+
+      if (newInfo.length) {
+        envDispatch({
+          type: "SET_LOGIN",
+          payload: {
+            email: newInfo[0].email,
+            firstname: newInfo[0].firstname,
+            lastname: newInfo[0].lastname,
+            username: newInfo[0].username,
+            role: newInfo[0].role,
+            status: true,
+          },
+        });
+      }
+    }
+  }, [users]);
+  
+  
+
 
   const handleLogout = (e) => {
+    localStorage.clear();
     login.status = false;
     envDispatch({
       type: "SET_LOGIN",
@@ -26,13 +66,13 @@ export default function NavbarV2() {
               <ul>
                 <li>
                   <p>
-                    <i className="fa fa-map-marker" /> 2072 Pinnickinick Street,
-                    WA 98370
+                    <i className="fa fa-map-marker" /> 7/1 Thành Thái, P.14,
+                    Q.10, Tp.HCM
                   </p>
                 </li>
                 <li>
                   <p>
-                    <i className="fa fa-envelope-o" /> info@website.com
+                    <i className="fa fa-envelope-o" /> edumint@gmail.com
                   </p>
                 </li>
               </ul>
@@ -78,9 +118,18 @@ export default function NavbarV2() {
           </div>
           {login.status ? (
             <div className="nav-right-part nav-right-part-mobile">
-              <label>{"Hello " + login.firstname}</label>
-              <Link className="signin-btn" onClick={(e) => handleLogout(e)}>
+              <label style={{ color: "white" }}>
+                {"Hello " + login.firstname}
+              </label>
+              <Link
+                className="signin-btn"
+                to="/"
+                onClick={(e) => handleLogout(e)}
+              >
                 Log out
+              </Link>
+              <Link className="signin-btn" to="/changepassword">
+                <i className="fa fa-key" />
               </Link>
 
               <a className="search-bar" href="#">
@@ -119,9 +168,9 @@ export default function NavbarV2() {
                   <li>
                     <Link to="/course">Course</Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link to="/course-details">Course Single</Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
               <li className="menu-item-has-children">
@@ -176,21 +225,42 @@ export default function NavbarV2() {
               <li>
                 <Link to="/contact">Contact Us</Link>
               </li>
+              {login.status == true && login.role == "admin" ? (
+                <li>
+                  <Link to="/manage">Manage</Link>
+                </li>
+              ) : (
+                <></>
+              )}
             </ul>
           </div>
           {login.status ? (
             <div className="nav-right-part nav-right-part-desktop">
-              <label style={{color: "white"}}>{"Hello " + login.firstname}</label>
-              <Link style={{color: "white"}} className="signin-btn" onClick={(e) => handleLogout(e)}>
+              <label style={{ color: "white" }}>
+                {"Hello " + login.firstname}
+              </label>
+              <Link
+                style={{ color: "white" }}
+                className="signin-btn"
+                onClick={(e) => handleLogout(e)}
+                to="/"
+              >
                 Log out
               </Link>
+              <Link className="signin-btn" to="/changepassword">
+                <i style={{ color: "white" }} className="fa fa-key" />
+              </Link>
               <a className="search-bar" href="#">
-                <i className="fa fa-search" />
+                <i style={{ color: "white" }} className="fa fa-search" />
               </a>
             </div>
           ) : (
             <div className="nav-right-part nav-right-part-desktop">
-              <Link style={{color: "white"}} className="signin-btn" to="/sign-in">
+              <Link
+                style={{ color: "white" }}
+                className="signin-btn"
+                to="/sign-in"
+              >
                 Sign In
               </Link>
               <Link className="btn btn-base" to="/sign-up">
